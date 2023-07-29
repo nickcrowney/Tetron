@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 id="title" class="neonTextBlueLess">T E T R O N</h1>
+    <div
+      style="
+        display: flex;
+        flex-direction: center;
+        justify-content: center;
+        width: 100vw;
+      "
+      class="neonTextBlueLess"
+    >
+      <div
+        style="
+          position: absolute;
+          top: 30vh;
+          left: 10vw;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: space-between;
+          height: 50vh;
+          width: 200px;
+        "
+      >
+        <div>
+          <div class="side-text">
+            <h3>Score</h3>
+            <h3 id="score">0</h3>
+          </div>
+          <div class="side-text">
+            <h3>Level</h3>
+            <h3 id="level">1</h3>
+          </div>
+        </div>
+        <div>
+          <div class="side-text">
+            <h3 style="width: 100px">Top score</h3>
+            <h3 id="top-score">0</h3>
+          </div>
+          <div class="side-text">
+            <h3 style="width: 100px">Highest level</h3>
+            <h3 id="top-level">0</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="neonTextBlueLess" id="next-title">NEXT UP</div>
+    <div class="next-blocks" id="next-one"></div>
+    <div class="next-blocks" id="next-two"></div>
+    <div class="next-blocks" id="next-three"></div>
+
+    <div class="neonBoxBlueLess">
+      <button id="start-button" class="neonTextBlueLess">INSERT COIN</button>
+    </div>
+    <div id="play-area"></div>
+    <div id="buttons-section">
+      <div id="move-buttons">
+        <div id="move-left" class="buttons neonTextBlueLess"></div>
+        <div id="rotate" class="buttons neonTextBlueLess"></div>
+        <div id="move-down" class="buttons neonTextBlueLess"></div>
+        <div id="move-right" class="buttons neonTextBlueLess"></div>
+      </div>
+    </div>
+    <div id="game-over" class="neonTextBlueLess">GAME OVER</div>
+    <div id="level-up" class="neonTextBlueLess">LEVEL UP!</div>
+    <!-- <audio
+      id="audio-one"
+      src="./music/sonofflynn.mp3"
+      onended="playSong2()"
+    ></audio
+    >;
+    <audio
+      id="audio-two"
+      src="./music/endoftheline.mp3"
+      onended="playSong3()"
+    ></audio
+    >;
+    <audio
+      id="audio-three"
+      src="./music/robotrock.mp3"
+      onended="playSong1()"
+    ></audio
+    >; -->
+  </body>
+  <script type="text/javascript" src="script.js"></script>
+</html>

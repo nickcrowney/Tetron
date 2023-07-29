@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+body {
+  /* background-color: aquamarine; */
+  background-image: linear-gradient(
+    to bottom,
+    rgb(4, 11, 16),
+    rgb(40, 20, 140)
+  );
+  font-family: 'Orbitron', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+.square {
+  color: royalblue;
+  background-color: rgb(8, 12, 27);
+  /* height: 30px;
+  width: 30px; */
+  /* overflow-y: hidden; */
+}
+
+#play-area {
+  display: grid;
+  grid-template-columns: repeat(10, 3.5vh);
+  grid-template-rows: repeat(10, 3.5vh);
+  grid-gap: 1px;
+  background-color: black;
+  border: 1px solid black;
+  width: calc(3.5vh * 10 + 9px);
+  /* //309px; */
+  height: calc(3.5vh * 20 + 9px);
+  /* 619px; */
+  margin: 0 auto;
+  border: #fff solid 0px;
+  box-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 20px rgb(105, 220, 255), 0 0 20px rgb(105, 220, 255),
+    0 0 70px rgb(105, 220, 255), 0 0 60px rgb(105, 220, 255);
+  overflow: visible;
+}
+
+.next-blocks {
+  position: absolute;
+  right: 10vw;
+  display: grid;
+  grid-template-columns: repeat(10, 3.5vh);
+  grid-template-rows: repeat(10, 3.5vh);
+  grid-gap: 1px;
+  background-color: black;
+  border: 1px solid black;
+  width: calc(3.5vh * 4 + 3px);
+  /* //309px; */
+  height: calc(3.5vh * 4 + 3px);
+  /* 619px; */
+  margin: 0 auto;
+  border: #fff solid 0px;
+  box-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 20px rgb(105, 220, 255), 0 0 20px rgb(105, 220, 255),
+    0 0 70px rgb(105, 220, 255), 0 0 60px rgb(105, 220, 255);
+  overflow: hidden;
+}
+#next-one {
+  position: absolute;
+  top: 20vh;
+}
+#next-two {
+  position: absolute;
+  top: 40vh;
+}
+#next-three {
+  position: absolute;
+  top: 60vh;
+}
+
+#title {
+  text-align: center;
+  margin-bottom: 3vh;
+  font-size: 50px;
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  /* color: white; */
+  color: linear-gradient(to right, red, yellow);
+}
+
+/* style="background-color: red; " */
+
+.tetris-piece {
+  /* background-color: red; */
+  background-color: rgb(249, 249, 249);
+  box-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 21px rgb(105, 220, 255), 0 0 21px rgb(105, 220, 255),
+    0 0 36px rgb(105, 220, 255), 0 0 36px rgb(105, 220, 255),
+    0 0 76px rgb(105, 220, 255), 0 0 76px rgb(105, 220, 255);
+  overflow: visible;
+}
+
+#game-over {
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-weight: bold;
+  visibility: hidden;
+  /* top: 50%;
+  left: 50%; */
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* height: 100vh; */
+  /* background-color: black; */
+  color: black;
+  font-size: 80px;
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+}
+
+#level-up {
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-weight: bold;
+  visibility: hidden;
+  /* top: 50%;
+    left: 50%; */
+
+  /* display: flex;
+    justify-content: center;
+    align-items: center; */
+  /* height: 100vh; */
+  /* background-color: black; */
+  color: black;
+  font-size: 80px;
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+      'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+}
+
+#start-button {
+  position: absolute;
+
+  left: 10vw;
+  height: 70px;
+  width: 100px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(105, 220, 255);
+  font-size: 20px;
+  background-color: rgb(8, 12, 27);
+  /* color: royalblue; */
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+}
+
+#buttons-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 50px;
+  margin: auto;
+  width: 10vw;
+  /* height: 50px; */
+}
+
+.game-over-squares {
+  background-color: yellow;
+}
+
+/* .neonText {
+  color: #fff;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+} */
+.neonTextGreen {
+  /* color: #fff; */
+  color: rgb(4, 11, 16);
+  /* 105 220 235 */
+
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+.neonTextBlue {
+  color: rgb(249, 249, 249);
+  text-shadow: 0 0 7px rgb(249, 249, 249), 0 0 10px rgb(249, 249, 249),
+    0 0 21px rgb(249, 249, 249), 0 0 42px rgb(105, 220, 255),
+    0 0 82px rgb(105, 220, 255), 0 0 92px rgb(105, 220, 255),
+    0 0 102px rgb(105, 220, 255), 0 0 151px rgb(105, 220, 255);
+}
+.neonTextRed {
+  color: #fff;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+.neonTextBlueLess {
+  color: rgb(249, 249, 249);
+  text-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 21px rgb(105, 220, 255), 0 0 21px rgb(105, 220, 255),
+    0 0 36px rgb(105, 220, 255), 0 0 36px rgb(105, 220, 255),
+    0 0 76px rgb(105, 220, 255), 0 0 76px rgb(105, 220, 255);
+}
+
+/* .neonTextBlueLess {
+    color: rgb(249, 249, 249);
+    text-shadow: 0 0 5px rgb(249, 249, 249), 0 0 5px rgb(249, 249, 249),
+      0 0 21px rgb(249, 249, 249), 0 0 42px rgb(105, 220, 255),
+      0 0 82px rgb(105, 220, 255), 0 0 92px rgb(105, 220, 255),
+      0 0 102px rgb(105, 220, 255), 0 0 151px rgb(105, 220, 255);
+  } */
+#move-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: space-between;
+  margin-top: 10px;
+  width: 50vw;
+  cursor: pointer;
+}
+.neonBoxBlueLess {
+  color: rgb(249, 249, 249);
+  box-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
+    0 0 21px rgb(105, 220, 255), 0 0 21px rgb(105, 220, 255),
+    0 0 36px rgb(105, 220, 255), 0 0 36px rgb(105, 220, 255),
+    0 0 76px rgb(105, 220, 255), 0 0 76px rgb(105, 220, 255);
+}
+
+.side-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
+}
+
+#next-title {
+  position: absolute;
+  right: 12vw;
+  top: 15vh;
+}
