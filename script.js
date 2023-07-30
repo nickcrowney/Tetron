@@ -49,9 +49,18 @@ var timerId;
 var levelSpeed = 100;
 var levelUp = levelSpeed;
 
+const levelUpSound = new Audio('./music/TronLevelShort.mp3');
+levelUpSound.currentTime = 0;
+
+const highScoreSound = new Audio('./music/JesusQuote.mp3');
+highScoreSound.currentTime = 0;
+
+const lineClearSound = new Audio('./music/boom.mp3');
+lineClearSound.currentTime = 0;
+
 const audio = new Audio('./music/sonofflynn.mp3');
 audio.currentTime = 0;
-audio.play();
+// audio.play();
 
 const secondAudio = new Audio('./music/endoftheline.mp3');
 audio.addEventListener('ended', function () {
@@ -212,6 +221,8 @@ var draw = function () {
       }, i * interval_1 + 40);
     });
     setTimeout(function () {
+      secondAudio.currentTime = 0;
+      secondAudio.pause();
       audio.currentTime = 0;
       audio.pause();
     }, 1000);
@@ -347,6 +358,8 @@ var moveDown = function () {
             if (check) {
               clearLine_1(i);
             }
+            lineClearSound.currentTime = 0;
+            lineClearSound.play();
             score += 20 * level;
             if (lines > 1 && !newTopScore && !newTopLevel && !levelUpText) {
               switch (lines) {
@@ -371,19 +384,23 @@ var moveDown = function () {
               }
             }
             if (score > topScore) {
-              newTopScore = true;
-              setTimeout(() => {
-                newTopScore = false;
-              }, 1000);
               if (!newTopScoreSet) {
-                document.getElementById('multi-lines').innerHTML = '';
-
-                document.getElementById('new-top-score').innerHTML =
-                  'New Top Score!';
+                highScoreSound.currentTime = 0;
+                highScoreSound.play();
+                newTopScore = true;
                 setTimeout(() => {
-                  document.getElementById('new-top-score').innerHTML = '';
+                  newTopScore = false;
                 }, 1000);
-                newTopScoreSet = true;
+                if (!newTopScoreSet) {
+                  document.getElementById('multi-lines').innerHTML = '';
+
+                  document.getElementById('new-top-score').innerHTML =
+                    'New Top Score!';
+                  setTimeout(() => {
+                    document.getElementById('new-top-score').innerHTML = '';
+                  }, 1000);
+                  newTopScoreSet = true;
+                }
               }
               topScore = score;
               localStorage.setItem('topScore', String(topScore));
@@ -393,9 +410,12 @@ var moveDown = function () {
             if (score >= levelUp) {
               speed -= 50;
               level += 1;
+
               if (level > topLevel) {
-                newTopLevel = true;
                 if (!newTopLevelSet && !newTopScore) {
+                  highScoreSound.currentTime = 0;
+                  highScoreSound.play();
+                  newTopLevel = true;
                   document.getElementById('new-top-level').innerHTML =
                     'New Top Level!';
                   setTimeout(() => {
@@ -414,7 +434,8 @@ var moveDown = function () {
               document.getElementById('level').innerHTML = level;
               //@ts-ignore
               if (!newTopScore && !newTopLevel) {
-                // levelUpSound.play();
+                levelUpSound.currentTime = 0;
+                levelUpSound.play();
                 levelUpText = true;
                 document.getElementById('level-up').style.visibility =
                   'visible';

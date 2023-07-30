@@ -37,9 +37,9 @@ body {
   margin: 0 auto;
   border: #fff solid 0px;
   box-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
-    0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
-    0 0 20px rgb(105, 220, 255), 0 0 20px rgb(105, 220, 255),
-    0 0 70px rgb(105, 220, 255), 0 0 60px rgb(105, 220, 255);
+    0 0 21px rgb(105, 220, 255), 0 0 21px rgb(105, 220, 255),
+    0 0 36px rgb(105, 220, 255), 0 0 36px rgb(105, 220, 255),
+    0 0 76px rgb(105, 220, 255), 0 0 76px rgb(105, 220, 255);
   overflow: visible;
 }
 
@@ -130,6 +130,13 @@ body {
   overflow: visible;
 }
 
+.neonBoxOrangeLess {
+  color: rgb(249, 249, 249);
+  text-shadow: 0 0 5px rgb(248, 240, 105), 0 0 5px rgb(248, 240, 105),
+    0 0 21px rgb(248, 240, 105), 0 0 21px rgb(248, 240, 105),
+    0 0 36px rgb(248, 240, 105), 0 0 36px rgb(248, 240, 105),
+    0 0 76px rgb(248, 240, 105), 0 0 76px rgb(248, 240, 105);
+}
 #game-over {
   position: absolute;
   top: 40%;
