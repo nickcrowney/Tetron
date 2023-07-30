@@ -74,6 +74,8 @@ secondAudio.addEventListener('ended', function () {
 });
 var newGame = function () {
   const audioStart = new Audio('./music/gameon.mp3');
+  secondAudio.currentTime = 0;
+  secondAudio.pause();
   setTimeout(() => {
     audioStart.currentTime = 0;
     audioStart;
