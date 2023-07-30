@@ -5,6 +5,11 @@ var topScore = 0;
 var topLevel = 1;
 var m = 0;
 var n = 0;
+let newTopScore = false;
+let newTopScoreSet = false;
+let newTopLevel = false;
+let newTopLevelSet = false;
+let levelUpText = false;
 var storedScore = localStorage.getItem('topScore');
 var storedLevel = localStorage.getItem('topLevel');
 var gameOn = false;
@@ -75,11 +80,16 @@ audio.play();
 //   audioElementTwo.pause();
 //   audioElementThree.play();
 // }
+const secondAudio = new Audio('./music/endoftheline.mp3');
 audio.addEventListener('ended', function () {
-  const secondAudio = new Audio('./music/endoftheline.mp3');
+  secondAudio.currentTime = 0;
   secondAudio.play();
 });
 
+secondAudio.addEventListener('ended', function () {
+  audio.currentTime = 0;
+  audio.play();
+});
 var newGame = function () {
   //   var utterance = new SpeechSynthesisUtterance('new game');
   //   utterance.voice = speechSynthesis.getVoices()[0];
@@ -101,10 +111,14 @@ var newGame = function () {
   document.getElementById('play-area').innerHTML = '';
   for (var i = 0; i < 210; i++) {
     //@ts-ignore
+    // box.classList.add('glow');
+    // console.log('GLOW');
     document.getElementById('play-area').innerHTML += box;
   }
   squares = Array.from(document.querySelectorAll('#play-area div'));
   squares.forEach(function (square, i) {
+    square.classList.add('glow');
+    console.log(square, 'SQUARE');
     if (i < 10) {
       square.style.display = 'none';
     }
@@ -159,6 +173,7 @@ var setInitialPieces = function () {
   }
 };
 setInitialPieces();
+
 // console.log(nextPieces, 'NEXT PIECES');
 var currentPosition = 4;
 // //@ts-ignore
@@ -190,6 +205,8 @@ var initialNext = function () {
 var drawNext = function () {
   initialNextArray.forEach(function (grid, i) {
     grid.forEach(function (square) {
+      square.classList.add('invisible');
+
       square.classList.remove('tetris-piece');
     });
   });
@@ -198,6 +215,7 @@ var drawNext = function () {
     piece[0].forEach(function (index) {
       console.log(initialNextArray, 'INITIAL NEXT ARRAY');
       initialNextArray[i][index].classList.add('tetris-piece');
+      initialNextArray[i][index].classList.remove('invisible');
     });
   });
 };
@@ -227,13 +245,22 @@ var draw = function () {
         square.classList.remove('tetris-piece');
         square.classList.remove('taken');
         //   square.classList.add('game-over-squares');
-        square.style.backgroundColor = 'grey';
+        square.style.backgroundColor = 'rgb(249, 249, 249)';
       }, i * interval_1);
     });
-    audio.currentTime = 0;
-    audio.pause();
+    squares.forEach(function (square, i) {
+      setTimeout(function () {
+        square.style.backgroundColor = 'rgb(8, 12, 27)';
+      }, i * interval_1 + 40);
+    });
+    setTimeout(function () {
+      audio.currentTime = 0;
+      audio.pause();
+    }, 1000);
 
-    const audioStart = new Audio('./music/zenthing.mp3');
+    // const audioStart = new Audio('./music/zenthing.mp3');
+    const audioStart = new Audio('./music/endofline_out.mp3');
+
     audioStart.currentTime = 0;
     audioStart;
     audioStart.play();
@@ -337,6 +364,7 @@ var moveDown = function () {
       });
       var checkLines = function () {
         var check = false;
+        let lines = 0;
         for (var i = 0; i < 209; i += width) {
           var row = [
             i,
@@ -355,10 +383,15 @@ var moveDown = function () {
               return squares[index].classList.contains('taken');
             })
           ) {
+            lines += 1;
             row.forEach(function (index) {
               check = true;
-              squares[index].classList.remove('taken');
-              squares[index].classList.remove('tetris-piece');
+              squares[index].classList.add('flashing');
+              setTimeout(function () {
+                squares[index].classList.remove('flashing');
+                squares[index].classList.remove('taken');
+                squares[index].classList.remove('tetris-piece');
+              }, 600);
               // const initial = index % 10;
               // console.log(index, initial, 'INDEX');
               // for (let j = 0; j < index; j ++) {
@@ -366,8 +399,45 @@ var moveDown = function () {
             if (check) {
               clearLine_1(i);
             }
+
             score += 20 * level;
+            if (lines > 1 && !newTopScore && !newTopLevel && !levelUpText) {
+              switch (lines) {
+                case 2:
+                  document.getElementById('multi-lines').innerHTML = '2 LINES!';
+                  setTimeout(() => {
+                    document.getElementById('multi-lines').innerHTML = '';
+                  }, 1000);
+                  break;
+                case 3:
+                  document.getElementById('multi-lines').innerHTML = '3 LINES!';
+                  setTimeout(() => {
+                    document.getElementById('multi-lines').innerHTML = '';
+                  }, 1000);
+                  break;
+                case 4:
+                  document.getElementById('multi-lines').innerHTML = '4 LINES!';
+                  setTimeout(() => {
+                    document.getElementById('multi-lines').innerHTML = '';
+                  }, 1000);
+                  break;
+              }
+            }
             if (score > topScore) {
+              newTopScore = true;
+              setTimeout(() => {
+                newTopScore = false;
+              }, 1000);
+              if (!newTopScoreSet) {
+                document.getElementById('multi-lines').innerHTML = '';
+
+                document.getElementById('new-top-score').innerHTML =
+                  'New Top Score!';
+                setTimeout(() => {
+                  document.getElementById('new-top-score').innerHTML = '';
+                }, 1000);
+                newTopScoreSet = true;
+              }
               topScore = score;
               localStorage.setItem('topScore', String(topScore));
             }
@@ -377,6 +447,18 @@ var moveDown = function () {
               speed -= 50;
               level += 1;
               if (level > topLevel) {
+                newTopLevel = true;
+                if (!newTopLevelSet && !newTopScore) {
+                  document.getElementById('new-top-level').innerHTML =
+                    'New Top Level!';
+                  setTimeout(() => {
+                    document.getElementById('new-top-level').innerHTML = '';
+                  }, 1000);
+                  setTimeout(() => {
+                    newTopLevel = false;
+                  }, 1000);
+                  newTopLevelSet = true;
+                }
                 topLevel = level;
                 localStorage.setItem('topLevel', String(topLevel));
               }
@@ -384,8 +466,18 @@ var moveDown = function () {
               //@ts-ignore
               document.getElementById('level').innerHTML = level;
               //@ts-ignore
-              document.getElementById('level-up').style.visibility = 'visible';
+              if (!newTopScore && !newTopLevel) {
+                // levelUpSound.play();
+                levelUpText = true;
+                document.getElementById('level-up').style.visibility =
+                  'visible';
+                document.getElementById('new-top-score').innerHTML = '';
+              }
+              document.getElementById('multi-lines').innerHTML = '';
+
               setTimeout(function () {
+                levelUpText = false;
+
                 //@ts-ignore
                 document.getElementById('level-up').style.visibility = 'hidden';
               }, 1000);
@@ -396,19 +488,20 @@ var moveDown = function () {
         }
       };
       var clearLine_1 = function (row) {
-        for (var j = row; j > 0; j--) {
-          if (squares[j].classList.contains('taken')) {
-            console.log(j, squares[j], 'J TAKEN');
-            squares[j].classList.remove('taken');
-            squares[j].classList.remove('tetris-piece');
-            squares[j + width].classList.add('taken');
-            squares[j + width].classList.add('tetris-piece');
-            console.log(j, squares[j + width], 'J TAKEN');
+        setTimeout(() => {
+          for (var j = row; j > 0; j--) {
+            if (squares[j].classList.contains('taken')) {
+              console.log(j, squares[j], 'J TAKEN');
+              squares[j].classList.remove('taken');
+              squares[j].classList.remove('tetris-piece');
+              squares[j + width].classList.add('taken');
+              squares[j + width].classList.add('tetris-piece');
+              console.log(j, squares[j + width], 'J TAKEN');
+            }
           }
-        }
+        }, 900);
       };
       checkLines();
-      // if (squares)
       newPiece();
     } else {
       current[m].forEach(function (index) {
@@ -556,6 +649,8 @@ for (var i = 4; i < 8; i++) {
     //   this.play();
     // };
     //@ts-ignore
+    document.getElementById('new-top-score').innerHTML = '';
+    document.getElementById('multi-lines').innerHTML = '';
     document.getElementById('game-over').style.visibility = 'visible';
   }
 }
