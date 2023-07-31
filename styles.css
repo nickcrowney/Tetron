@@ -201,6 +201,7 @@ body {
   color: black;
   font-size: 80px;
 }
+
 #multi-lines {
   position: absolute;
   top: 40%;
@@ -214,6 +215,18 @@ body {
   font-size: 80px;
 }
 #new-top-score {
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-weight: bold;
+  visibility: visible;
+  color: black;
+  font-size: 80px;
+}
+#new-top-level {
   position: absolute;
   top: 40%;
   display: flex;

@@ -33,6 +33,9 @@ if (storedLevel) {
   if (storedTopLevel) {
     storedTopLevel.innerHTML = String(topLevel);
   }
+  //   else {
+  //     storedTopLevel.innerHTML = '1';
+  //   }
 }
 //@ts-ignore
 document.getElementById('move-left').innerHTML = '<';
@@ -74,11 +77,15 @@ secondAudio.addEventListener('ended', function () {
 });
 var newGame = function () {
   clearInterval(introAnimations);
+  clearInterval(timerId);
+  speed = 500;
+  timerId = setInterval(moveDown, speed);
 
   score = 0;
   level = 1;
   gameOn = true;
-
+  document.getElementById('level').innerHTML = level;
+  document.getElementById('score').innerHTML = score;
   const audioStart = new Audio('./music/gameon.mp3');
   secondAudio.currentTime = 0;
   secondAudio.pause();
@@ -453,7 +460,8 @@ var moveDown = function () {
             //@ts-ignore
             document.getElementById('score').innerHTML = score;
             if (score >= levelUp) {
-              speed -= 50;
+              speed = Math.ceil(speed * 0.8);
+              //   speed -= 50;
               level += 1;
 
               if (level > topLevel) {
