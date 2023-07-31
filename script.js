@@ -73,15 +73,10 @@ secondAudio.addEventListener('ended', function () {
   audio.play();
 });
 var newGame = function () {
-  //   if (introAnimations) {
-  //     console.log(introAnimations, 'introAnimations');
-  //     introAnimations.clearInterval();
-  //   }
   clearInterval(introAnimations);
 
   score = 0;
   level = 1;
-  //   squares[animatedSquare].classList.remove('animated-square');
   gameOn = true;
 
   const audioStart = new Audio('./music/gameon.mp3');
@@ -122,11 +117,6 @@ const randomAnimatedSquare = () => {
   animatedSquareArray.forEach((animatedSquare) => {
     if (animatedSquare % 3 === 0) {
       squares[animatedSquare].classList.add('animated-square');
-      console.log(
-        animatedSquareArray,
-        squares[animatedSquare],
-        'randomAnimatedSquare'
-      );
     }
     if (animatedSquare % 3 === 1) {
       squares[animatedSquare].classList.add('animated-square2');
@@ -147,17 +137,6 @@ if (introAnimations) {
   clearInterval(introAnimations);
 }
 introAnimations = setInterval(randomAnimatedSquare, 1000);
-// clearInterval(introAnimations);
-
-console.log(introAnimations, 'introAnimations normal');
-// const introAnimations = (inSession) => {
-//   if (!inSession) {
-//   } else {
-//     setInterval(randomAnimatedSquare, 1000);
-//     clearInterval()
-//   }
-// };
-// introAnimations(false);
 var width = 10;
 var lPiece = [
   [1, 2, width + 1, 2 * width + 1],
