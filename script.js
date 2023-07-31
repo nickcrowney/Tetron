@@ -276,7 +276,7 @@ var draw = function () {
     audioStart;
     audioStart.play();
     setTimeout(() => {
-      introAnimations = setInterval(randomAnimatedSquare, 1000);
+      introAnimations = setInterval(randomAnimatedSquare, 1200);
     }, 7000);
 
     // // var utterance = new SpeechSynthesisUtterance('Your game');
