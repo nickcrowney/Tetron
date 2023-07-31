@@ -118,25 +118,33 @@ const randomAnimatedSquare = () => {
     if (animatedSquare % 3 === 0) {
       squares[animatedSquare].classList.add('animated-square');
     }
-    if (animatedSquare % 3 === 1) {
-      squares[animatedSquare].classList.add('animated-square2');
-    }
-    if (animatedSquare % 3 === 2) {
-      squares[animatedSquare].classList.add('animated-square3');
-    }
+    setTimeout(() => {
+      if (animatedSquare % 3 === 1) {
+        squares[animatedSquare].classList.add('animated-square2');
+      }
+    }, 200);
+    setTimeout(() => {
+      if (animatedSquare % 3 === 2) {
+        squares[animatedSquare].classList.add('animated-square3');
+      }
+    }, 400);
   });
   setTimeout(() => {
     animatedSquareArray.forEach((animatedSquare) => {
       squares[animatedSquare].classList.remove('animated-square');
-      squares[animatedSquare].classList.remove('animated-square2');
-      squares[animatedSquare].classList.remove('animated-square3');
+      setTimeout(() => {
+        squares[animatedSquare].classList.remove('animated-square2');
+      }, 200);
+      setTimeout(() => {
+        squares[animatedSquare].classList.remove('animated-square3');
+      }, 400);
     });
-  }, 900);
+  }, 1100);
 };
 if (introAnimations) {
   clearInterval(introAnimations);
 }
-introAnimations = setInterval(randomAnimatedSquare, 1000);
+introAnimations = setInterval(randomAnimatedSquare, 1200);
 var width = 10;
 var lPiece = [
   [1, 2, width + 1, 2 * width + 1],
