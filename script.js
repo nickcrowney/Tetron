@@ -19,6 +19,41 @@ let introAnimations;
 var levelSpeed = 100;
 var levelUp = levelSpeed;
 let animatedSquare = 10;
+var width = 10;
+var currentPosition = 4;
+var lPiece = [
+  [1, 2, width + 1, 2 * width + 1],
+  [width, width + 1, width + 2, 2 * width + 2],
+  [2 * width, 2 * width + 1, width + 1, 1],
+  [width, 2 * width, 2 * width + 1, 2 * width + 2],
+];
+var oPiece = [
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+];
+var zPiece = [
+  [2 * width, 2 * width + 1, width + 1, width + 2],
+  [0, width, width + 1, 2 * width + 1],
+  [2 * width, 2 * width + 1, width + 1, width + 2],
+  [0, width, width + 1, 2 * width + 1],
+];
+var tPiece = [
+  [width, width + 1, width + 2, 1],
+  [1, width + 1, 2 * width + 1, width + 2],
+  [width, width + 1, width + 2, 2 * width + 1],
+  [1, width + 1, 2 * width + 1, width],
+];
+var iPiece = [
+  [1, width + 1, 2 * width + 1, 3 * width + 1],
+  [width, width + 1, width + 2, width + 3],
+  [1, width + 1, 2 * width + 1, 3 * width + 1],
+  [width, width + 1, width + 2, width + 3],
+];
+var pieces = [lPiece, zPiece, tPiece, oPiece, iPiece];
+var nextPieces = [];
+
 if (storedScore) {
   topScore = Number(storedScore);
   var storedTopScore = document.getElementById('top-score');
@@ -52,6 +87,8 @@ for (var i = 0; i < 210; i++) {
 }
 var squares = Array.from(document.querySelectorAll('#play-area div'));
 
+// Sounds
+
 const levelUpSound = new Audio('./music/TronLevelShort.mp3');
 levelUpSound.currentTime = 0;
 
@@ -63,9 +100,9 @@ lineClearSound.currentTime = 0;
 
 const audio = new Audio('./music/sonofflynn.mp3');
 audio.currentTime = 0;
-// audio.play();
 
 const secondAudio = new Audio('./music/endoftheline.mp3');
+
 audio.addEventListener('ended', function () {
   secondAudio.currentTime = 0;
   secondAudio.play();
@@ -75,6 +112,9 @@ secondAudio.addEventListener('ended', function () {
   audio.currentTime = 0;
   audio.play();
 });
+
+// Game functions
+
 var newGame = function () {
   clearInterval(introAnimations);
   clearInterval(timerId);
@@ -100,12 +140,10 @@ var newGame = function () {
   document.getElementById('play-area').innerHTML = '';
   for (var i = 0; i < 210; i++) {
     //@ts-ignore
-    // box.classList.add('glow');
     document.getElementById('play-area').innerHTML += box;
   }
   squares = Array.from(document.querySelectorAll('#play-area div'));
   squares.forEach(function (square, i) {
-    // square.classList.add('glow');
     if (i < 10) {
       square.style.display = 'none';
     }
@@ -152,39 +190,6 @@ if (introAnimations) {
   clearInterval(introAnimations);
 }
 introAnimations = setInterval(randomAnimatedSquare, 1200);
-var width = 10;
-var lPiece = [
-  [1, 2, width + 1, 2 * width + 1],
-  [width, width + 1, width + 2, 2 * width + 2],
-  [2 * width, 2 * width + 1, width + 1, 1],
-  [width, 2 * width, 2 * width + 1, 2 * width + 2],
-];
-var oPiece = [
-  [0, 1, width, width + 1],
-  [0, 1, width, width + 1],
-  [0, 1, width, width + 1],
-  [0, 1, width, width + 1],
-];
-var zPiece = [
-  [2 * width, 2 * width + 1, width + 1, width + 2],
-  [0, width, width + 1, 2 * width + 1],
-  [2 * width, 2 * width + 1, width + 1, width + 2],
-  [0, width, width + 1, 2 * width + 1],
-];
-var tPiece = [
-  [width, width + 1, width + 2, 1],
-  [1, width + 1, 2 * width + 1, width + 2],
-  [width, width + 1, width + 2, 2 * width + 1],
-  [1, width + 1, 2 * width + 1, width],
-];
-var iPiece = [
-  [1, width + 1, 2 * width + 1, 3 * width + 1],
-  [width, width + 1, width + 2, width + 3],
-  [1, width + 1, 2 * width + 1, 3 * width + 1],
-  [width, width + 1, width + 2, width + 3],
-];
-var pieces = [lPiece, zPiece, tPiece, oPiece, iPiece];
-var nextPieces = [];
 var addPiece = function () {
   var x = Math.floor(Math.random() * pieces.length);
   //   m = Math.floor(Math.random() * pieces[n].length);
@@ -197,7 +202,6 @@ var setInitialPieces = function () {
 };
 setInitialPieces();
 
-var currentPosition = 4;
 // //@ts-ignore
 var current = nextPieces.shift();
 for (var i = 0; i < 40; i++) {
@@ -225,7 +229,6 @@ var drawNext = function () {
   initialNextArray.forEach(function (grid, i) {
     grid.forEach(function (square) {
       square.classList.add('invisible');
-
       square.classList.remove('tetris-piece');
     });
   });
@@ -236,9 +239,10 @@ var drawNext = function () {
     });
   });
 };
+
 initialNext();
 drawNext();
-// let currentPiece = pieces[n];
+
 var draw = function () {
   // m = 0;
   var check = current[m].some(function (index) {
@@ -323,6 +327,9 @@ var newPiece = function () {
     draw();
   }
 };
+
+// Direction functions -----------------------------
+
 var moveLeft = function () {
   if (gameOn) {
     if (
@@ -461,7 +468,6 @@ var moveDown = function () {
             document.getElementById('score').innerHTML = score;
             if (score >= levelUp) {
               speed = Math.ceil(speed * 0.8);
-              //   speed -= 50;
               level += 1;
 
               if (level > topLevel) {
@@ -576,6 +582,7 @@ var rotate = function () {
     draw();
   }
 };
+
 addEventListener('keydown', function (e) {
   if (e.key === 'ArrowLeft') {
     moveLeft();
@@ -596,9 +603,9 @@ addEventListener('click', function (e) {
     if (e.target.id === 'start-button') {
       //@ts-ignore
       document.getElementById('game-over').style.visibility = 'hidden';
-      speed = 500;
-      timerId = setInterval(moveDown, speed);
-      level = 1;
+      //   speed = 500;
+      //   timerId = setInterval(moveDown, speed);
+      //   level = 1;
       newGame();
       newPiece();
       //@ts-ignore
