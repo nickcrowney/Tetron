@@ -319,6 +319,8 @@ body {
   align-items: space-between;
   margin-top: 10px;
   width: 50vw;
+}
+#move-buttons button {
   cursor: pointer;
 }
 .neonBoxBlueLess {
