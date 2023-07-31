@@ -13,7 +13,12 @@ let levelUpText = false;
 var storedScore = localStorage.getItem('topScore');
 var storedLevel = localStorage.getItem('topLevel');
 var gameOn = false;
-
+var speed = 500;
+var timerId;
+let introAnimations;
+var levelSpeed = 100;
+var levelUp = levelSpeed;
+let animatedSquare = 10;
 if (storedScore) {
   topScore = Number(storedScore);
   var storedTopScore = document.getElementById('top-score');
@@ -42,12 +47,7 @@ for (var i = 0; i < 210; i++) {
   //@ts-ignore
   document.getElementById('play-area').innerHTML += box;
 }
-// let grid = document.querySelector('.grid');
 var squares = Array.from(document.querySelectorAll('#play-area div'));
-var speed = 500;
-var timerId;
-var levelSpeed = 100;
-var levelUp = levelSpeed;
 
 const levelUpSound = new Audio('./music/TronLevelShort.mp3');
 levelUpSound.currentTime = 0;
@@ -73,8 +73,17 @@ secondAudio.addEventListener('ended', function () {
   audio.play();
 });
 var newGame = function () {
+  //   if (introAnimations) {
+  //     console.log(introAnimations, 'introAnimations');
+  //     introAnimations.clearInterval();
+  //   }
+  clearInterval(introAnimations);
+
   score = 0;
   level = 1;
+  //   squares[animatedSquare].classList.remove('animated-square');
+  gameOn = true;
+
   const audioStart = new Audio('./music/gameon.mp3');
   secondAudio.currentTime = 0;
   secondAudio.pause();
@@ -85,28 +94,70 @@ var newGame = function () {
   }, 1000);
   audio.currentTime = 0;
   audio.play();
-  gameOn = true;
   //@ts-ignore
   document.getElementById('play-area').innerHTML = '';
   for (var i = 0; i < 210; i++) {
     //@ts-ignore
     // box.classList.add('glow');
-    // console.log('GLOW');
     document.getElementById('play-area').innerHTML += box;
   }
   squares = Array.from(document.querySelectorAll('#play-area div'));
   squares.forEach(function (square, i) {
-    square.classList.add('glow');
+    // square.classList.add('glow');
     if (i < 10) {
       square.style.display = 'none';
     }
   });
-  // audio.currentTime = 0;
-  // audio.pause();
-  // setTimeout(() => {
-  //   audio.play();
-  // }, 1000);
 };
+
+// let animatedSquare = 10;
+let animatedSquareArray = []; //= [10, 11, 12, 13, 14, 15]
+const randomAnimatedSquare = () => {
+  animatedSquareArray = [];
+  for (let i = 0; i < 9; i++) {
+    animatedSquare = Math.floor(Math.random() * 200);
+    animatedSquare = animatedSquare + 10;
+    animatedSquareArray.push(animatedSquare);
+  }
+  animatedSquareArray.forEach((animatedSquare) => {
+    if (animatedSquare % 3 === 0) {
+      squares[animatedSquare].classList.add('animated-square');
+      console.log(
+        animatedSquareArray,
+        squares[animatedSquare],
+        'randomAnimatedSquare'
+      );
+    }
+    if (animatedSquare % 3 === 1) {
+      squares[animatedSquare].classList.add('animated-square2');
+    }
+    if (animatedSquare % 3 === 2) {
+      squares[animatedSquare].classList.add('animated-square3');
+    }
+  });
+  setTimeout(() => {
+    animatedSquareArray.forEach((animatedSquare) => {
+      squares[animatedSquare].classList.remove('animated-square');
+      squares[animatedSquare].classList.remove('animated-square2');
+      squares[animatedSquare].classList.remove('animated-square3');
+    });
+  }, 900);
+};
+if (introAnimations) {
+  clearInterval(introAnimations);
+}
+introAnimations = setInterval(randomAnimatedSquare, 1000);
+// clearInterval(introAnimations);
+
+console.log(introAnimations, 'introAnimations normal');
+// const introAnimations = (inSession) => {
+//   if (!inSession) {
+//   } else {
+//     setInterval(randomAnimatedSquare, 1000);
+//     clearInterval()
+//   }
+// };
+// introAnimations(false);
 var width = 10;
 var lPiece = [
   [1, 2, width + 1, 2 * width + 1],
@@ -237,6 +288,9 @@ var draw = function () {
     audioStart.currentTime = 0;
     audioStart;
     audioStart.play();
+    setTimeout(() => {
+      introAnimations = setInterval(randomAnimatedSquare, 1000);
+    }, 7000);
 
     // // var utterance = new SpeechSynthesisUtterance('Your game');
     // // utterance.voice = speechSynthesis.getVoices()[0];

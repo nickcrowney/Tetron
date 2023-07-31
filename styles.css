@@ -59,10 +59,6 @@ body {
   /* 619px; */
   margin: 0 auto;
   border: #fff solid 0px;
-  /* box-shadow: 0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
-    0 0 5px rgb(105, 220, 255), 0 0 5px rgb(105, 220, 255),
-    0 0 20px rgb(105, 220, 255), 0 0 20px rgb(105, 220, 255),
-    0 0 70px rgb(105, 220, 255), 0 0 60px rgb(105, 220, 255); */
   overflow: hidden;
 }
 
@@ -90,9 +86,6 @@ body {
   text-align: center;
   margin-bottom: 3vh;
   font-size: 50px;
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
-  /* color: white; */
   color: linear-gradient(to right, red, yellow);
 }
 @keyframes animate {
@@ -118,6 +111,45 @@ body {
   }
 }
 
+@keyframes anisquare {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes anisquare2 {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes anisquare3 {
+  0% {
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 /* style="background-color: red; " */
 
 .tetris-piece {
@@ -146,18 +178,9 @@ body {
   width: 100vw;
   font-weight: bold;
   visibility: hidden;
-  /* top: 50%;
-  left: 50%; */
 
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  /* height: 100vh; */
-  /* background-color: black; */
   color: black;
   font-size: 80px;
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 .flashing {
   animation: animate 0.2s linear infinite;
@@ -276,13 +299,6 @@ body {
     0 0 76px rgb(105, 220, 255), 0 0 76px rgb(105, 220, 255);
 }
 
-/* .neonTextBlueLess {
-    color: rgb(249, 249, 249);
-    text-shadow: 0 0 5px rgb(249, 249, 249), 0 0 5px rgb(249, 249, 249),
-      0 0 21px rgb(249, 249, 249), 0 0 42px rgb(105, 220, 255),
-      0 0 82px rgb(105, 220, 255), 0 0 92px rgb(105, 220, 255),
-      0 0 102px rgb(105, 220, 255), 0 0 151px rgb(105, 220, 255);
-  } */
 #move-buttons {
   display: flex;
   flex-direction: row;
@@ -322,4 +338,20 @@ body {
   position: absolute;
   right: 5vw;
   bottom: 5vh;
+}
+
+.animated-square {
+  color: rgb(249, 249, 249);
+  background-color: rgb(105, 220, 255) !important;
+  animation: anisquare 1s linear infinite;
+}
+.animated-square2 {
+  color: rgb(249, 249, 249);
+  background-color: rgb(105, 220, 255) !important;
+  animation: anisquare2 1s linear infinite;
+}
+.animated-square3 {
+  color: rgb(249, 249, 249);
+  background-color: rgb(105, 220, 255) !important;
+  animation: anisquare2 1s linear infinite;
 }
